@@ -45,7 +45,7 @@ function onMapClick(e) {
             var lng = parseFloat(coor_nations[data.countryName][1]);
 
             var marker = L.marker([lat,lng]).addTo(map);
-            marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+            marker.bindPopup("<b>" +  data.countryName + "</b>").openPopup();
 
             setTimeout(function() {
                 map.removeLayer(marker);

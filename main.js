@@ -1,5 +1,12 @@
 
 
+
+const display = document.getElementById('display');
+
+display.textContent = weighted_random_choice_from_list_function(nations, probs)[1];
+
+
+
 var map = L.map('map').setView([51.505, -0.09], 3);
 
 
@@ -16,25 +23,14 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png'
 let url = "http://api.geonames.org/countryCodeJSON?lat=&lng=&username=cris__leaflet";
 
 
-fetch('http://api.geonames.org/countryCodeJSON?lat=49.03&lng=10.2&username=cris__leaflet')
-    .then(response => response.json())  // Usa response.text() per ottenere il contenuto come stringa
-    .then(data => {
-        console.log('NATION:', data.countryName);  // Stampa il codice del paese ricevuto
-    })
-    .catch(error => {
-        console.error('Errore:', error);  // Gestisce eventuali errori nella richiesta
-    });
-
 
 
 function onMapClick(e) {
 
-    console.log(e.latlng['lat']);
 
     var nuovo_url = inserisci_dato(e.latlng['lat'], url, 'lat=');
     nuovo_url = inserisci_dato(e.latlng['lng'], nuovo_url, 'lng=');
 
-    console.log(nuovo_url);
 
     fetch(nuovo_url)
         .then(response => response.json())  // Usa response.text() per ottenere il contenuto come stringa
@@ -45,6 +41,12 @@ function onMapClick(e) {
             console.error('Errore:', error);  // Gestisce eventuali errori nella richiesta
         });
 
+    // var marker = L.marker([coor_nations[nation.toLowerCase()][0], nation.toLowerCase()][1]).addTo(map);
+    // marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+
+    setTimeout(function() {
+        map.removeLayer(marker);
+    }, 1000);
 
 }
 

@@ -35,18 +35,31 @@ function onMapClick(e) {
     fetch(nuovo_url)
         .then(response => response.json())  // Usa response.text() per ottenere il contenuto come stringa
         .then(data => {
+
+
             console.log('NATION:', data.countryName);  // Stampa il codice del paese ricevuto
+
+            console.log(parseFloat(coor_nations[data.countryName]));
+            // console.log(coor_nations[data.countryName]);
+            var lat = parseFloat(coor_nations[data.countryName][0]);
+            var lng = parseFloat(coor_nations[data.countryName][1]);
+
+            var marker = L.marker([lat,lng]).addTo(map);
+            marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+
+            setTimeout(function() {
+                map.removeLayer(marker);
+            }, 1000);
+
+            
         })
         .catch(error => {
             console.error('Errore:', error);  // Gestisce eventuali errori nella richiesta
         });
 
-    // var marker = L.marker([coor_nations[nation.toLowerCase()][0], nation.toLowerCase()][1]).addTo(map);
-    // marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+    
 
-    setTimeout(function() {
-        map.removeLayer(marker);
-    }, 1000);
+    
 
 }
 
